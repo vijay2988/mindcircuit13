@@ -10,7 +10,7 @@ pipeline {
       stage('checkout') {
             steps {
                 echo 'Cloning GIT HUB Repo '
-				git branch: 'main', url: 'https://github.com/devopstraininghub/mindcircuit13.git'
+				git branch: 'main', url: 'https://github.com/vijay2988/mindcircuit13.git'
             }  
         }
 		
@@ -22,8 +22,8 @@ pipeline {
                 sh 'ls -ltr'
                 
                 sh ''' mvn sonar:sonar \\
-                      -Dsonar.host.url=http://44.210.116.12:9000 \\
-                      -Dsonar.login=squ_a46b6947d43a812180415ff94219120d2ddebcea'''
+                      -Dsonar.host.url=http://65.0.109.41:9000 \\
+                      -Dsonar.login=squ_eaa97ca2b351cc645caaed089437cb1b3b069bfa'''
             }
     	}
 		
@@ -41,7 +41,7 @@ pipeline {
         stage('Docker Image') {
             steps {
                 echo 'Docker Image building'
-				sh 'docker build -t devopshubg333/batch13:${BUILD_NUMBER} .'
+				sh 'docker build -t vijay5677/batch13:${BUILD_NUMBER} .'
             }
         }
 		
@@ -51,10 +51,10 @@ pipeline {
 			 script {
 			withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) 
 			{
-            sh 'docker login -u devopshubg333 -p ${dockerhub}'
+            sh 'docker login -u vijay5677 -p ${dockerhub}'
 			
 			 }
-			   sh 'docker push devopshubg333/batch13:${BUILD_NUMBER}'
+			   sh 'docker push vijay5677/batch13:${BUILD_NUMBER}'
 			   
            
 				}
@@ -67,7 +67,7 @@ pipeline {
 		
 		 environment {
             GIT_REPO_NAME = "mindcircuit13"
-            GIT_USER_NAME = "devopstraininghub"
+            GIT_USER_NAME = "vijay2988"
         }
 		
             steps {
